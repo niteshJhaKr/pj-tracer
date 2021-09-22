@@ -54,8 +54,22 @@ class Tracer {
         }
         let urls = [];
 
+        let PROXY_DATA = this.config.proxy_data;
+
         await this.page.setViewport({ width: this.config.device_specs.width, height: this.config.device_specs.width });
         await this.page.setUserAgent(this.config.user_agent);
+
+        if( PROXY_DATA && PROXY_DATA.AUTHENTICATION && PROXY_DATA.AUTHENTICATION == 'BASIC_AUTH' ){
+            await this.page.authenticate({
+                username: PROXY_DATA.PROXY_USERNAME,
+                password: PROXY_DATA.PROXY_PASSWORD
+            });
+        } else if( PROXY_DATA && PROXY_DATA.AUTHENTICATION && PROXY_DATA.AUTHENTICATION == 'BEARER_TOKEN'){
+            await this.page.setExtraHTTPHeaders({
+                'Proxy-Authorization': 'Basic ' + Buffer.from(PROXY_DATA.TOKEN+':').toString('base64'),
+            });
+        }
+
 
         await this.page.setRequestInterception(true);
         // added configuration
@@ -119,7 +133,7 @@ class Tracer {
         return {
             results: this.results.filter(function (el) {
                 return el != null;
-            }),
+              }),
             metadata: this.metadata,
             num_requests: this.num_requests,
         }

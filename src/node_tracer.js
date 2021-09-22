@@ -41,6 +41,8 @@ class TraceManager {
             headless: true,
             // specify flags passed to chrome here
             chrome_flags: [],
+            //Proxy Information for browser to be used for page crawling
+            proxy_data: [],
             // path to output file, data will be stored in JSON
             output_file: '',
             // whether to return a screenshot of serp pages as b64 data

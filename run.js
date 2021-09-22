@@ -1,7 +1,8 @@
 const pj_tracer = require('./index.js');
 const puppeteer = require('puppeteer-extra')
-const fs = require('fs');
-const util = require('util');
+
+const PROXY_DATA = false;
+
 const launchOptions = {
     //headless: (process.env.CRAWL_HEADLESS || false),
     headless: false,
@@ -18,6 +19,9 @@ const launchOptions = {
         '--ignore-certifcate-errors-spki-list',
     ]
 };
+if( PROXY_DATA ){
+    launchOptions.args.push('--proxy-server='+PROXY_DATA.PROXY_SERVER+':'+PROXY_DATA.PROXY_PORT);
+}
 
 // those options need to be provided on startup
 // and cannot give to pj-tracer on tracer() calls
@@ -28,7 +32,17 @@ let browser_config = {
     //Desktop | Mobile | Tablet
     device: 'Desktop',
     //Proxy Information for browser to be used for page crawling
-    proxy_data: [],
+    proxy_data: false,
+    // proxy_data: {
+    //     'PROXY_SCHEME' : 'PROXY_SERVER:PROXY_PORT',
+    //     'PROXY_SERVER' : 'SERVER_URL',
+    //     'PROXY_PORT' : 00000,
+    //     'AUTHENTICATION' : 'BASIC_AUTH',
+    //     'PROXY_USERNAME' : 'USERNAME',
+    //     'PROXY_PASSWORD' : 'PWD',
+    //     'USE_SSL' : true,
+    //     'ENABLED' : true,
+    // }
 };
 
 
