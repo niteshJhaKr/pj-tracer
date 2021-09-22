@@ -2,6 +2,16 @@ const pj_tracer = require('./index.js');
 const puppeteer = require('puppeteer-extra')
 
 const PROXY_DATA = false;
+// const PROXY_DATA = {
+//     'PROXY_SCHEME' : 'PROXY_SERVER:PROXY_PORT',
+//     'PROXY_SERVER' : 'SERVER_URL',
+//     'PROXY_PORT' : 00000,
+//     'AUTHENTICATION' : 'BASIC_AUTH',
+//     'PROXY_USERNAME' : 'USERNAME',
+//     'PROXY_PASSWORD' : 'PWD',
+//     'USE_SSL' : true,
+//     'ENABLED' : true,
+// }
 
 const launchOptions = {
     //headless: (process.env.CRAWL_HEADLESS || false),
@@ -32,17 +42,7 @@ let browser_config = {
     //Desktop | Mobile | Tablet
     device: 'Desktop',
     //Proxy Information for browser to be used for page crawling
-    proxy_data: false,
-    // proxy_data: {
-    //     'PROXY_SCHEME' : 'PROXY_SERVER:PROXY_PORT',
-    //     'PROXY_SERVER' : 'SERVER_URL',
-    //     'PROXY_PORT' : 00000,
-    //     'AUTHENTICATION' : 'BASIC_AUTH',
-    //     'PROXY_USERNAME' : 'USERNAME',
-    //     'PROXY_PASSWORD' : 'PWD',
-    //     'USE_SSL' : true,
-    //     'ENABLED' : true,
-    // }
+    proxy_data: PROXY_DATA,
 };
 
 
